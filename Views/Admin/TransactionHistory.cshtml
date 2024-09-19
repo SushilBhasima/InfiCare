@@ -1,0 +1,93 @@
+﻿@model TransactionHistoryViewModel
+
+<h1>Transaction History</h1>
+
+<!-- Date Range Filter -->
+<div>
+    <form method="get" action="@Url.Action("TransactionHistory", "Admin")">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" value="@ViewBag.FromDate?.ToString("yyyy-MM-dd")" />
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" value="@ViewBag.ToDate?.ToString("yyyy-MM-dd")" />
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <button type="reset" class="btn btn-danger">Clear</button>
+    </form>
+</div>
+
+<!-- Transaction Table -->
+<table>
+    <thead>
+        <tr>
+            <th>Transaction Id</th>
+            <th>Name</th>
+            <th>Bank Number</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Remarks</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Data != null && Model.Data.Any())
+        {
+            foreach (var trans in Model.Data)
+            {
+                <tr>
+                    <td>@trans.TransactionId</td>
+                    <td>@trans.Receiver.FirstName</td>
+                    <td>@trans.Payment.BankName</td>
+                    <td>@trans.Payment.TransferAmount.ToString("C")</td>
+                    <td>@trans.Status</td>
+                    <td>@trans.Remarks</td>
+                    <td>@trans.Created.ToString("MM/dd/yyyy")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">No transactions found for the selected date range.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        margin-right: 10px;
+    }
+
+    input[type="date"] {
+        margin-right: 10px;
+    }
+</style>

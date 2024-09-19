@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Exchange Rates";
+}
+<h2>Exchange Rates</h2>
+
+<!-- Form for the user to input filter criteria -->
+<form method="get" action="@Url.Action("ExchangeRate", "Admin")">
+    <div class="form-group">
+        <label for="from">From Date:</label>
+        <input type="date" name="from" id="from" class="form-control" value="@ViewBag.FromDate" />
+    </div>
+
+    <div class="form-group">
+        <label for="to">To Date:</label>
+        <input type="date" name="to" id="to" class="form-control" value="@ViewBag.ToDate" />
+    </div>
+
+    <div class="form-group">
+        <label for="page">Page:</label>
+        <input type="number" name="page" id="page" class="form-control" value="@ViewBag.Page" />
+    </div>
+
+    <div class="form-group">
+        <label for="per_page">Items per Page:</label>
+        <input type="number" name="per_page" id="per_page" class="form-control" value="@ViewBag.PerPage" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Get Rates</button>
+</form>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Buy Rate</th>
+                <th>Sell Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rate in Model)
+            {
+                <tr>
+                    <td>@rate.Currency.Name</td>
+                    <td>@rate.Buy</td>
+                    <td>@rate.Sell</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p> No Exchange rate data available for selected date range.</p>
+}
+

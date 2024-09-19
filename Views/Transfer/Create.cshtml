@@ -1,0 +1,128 @@
+﻿@model TransferViewModel
+
+<style>
+    .transfer-form {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Adds space between columns */
+    }
+
+        .transfer-form > div {
+            flex: 1; /* Each column takes equal space */
+        }
+
+    .sender-details, .receiver-details, .payment-details {
+        border: 1px solid #ccc; /* Adds border around each section */
+        padding: 15px; /* Adds space inside each section */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .remarks-section {
+        margin-top: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            width: 150px; /* Sets a fixed width for all labels for alignment */
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%; /* Makes the input and textarea take full width of the container */
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            height: 150px; /* Set a larger height for the textarea */
+        }
+</style>
+
+<form asp-action="Create" method="post">
+    <h2>Money Transfer</h2>
+
+    <div class="transfer-form">
+        <div class="sender-details">
+            <h3>Sender Details</h3>
+            <div class="form-group">
+                <label>First Name:</label>
+                <input asp-for="Sender.FirstName" />
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input asp-for="Sender.LastName" />
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input asp-for="Sender.Address" />
+            </div>
+            <div class="form-group">
+                <label>Country:</label>
+                <input asp-for="Sender.Country" />
+            </div>
+        </div>
+
+        <div class="receiver-details">
+            <h3>Receiver Details</h3>
+            <div class="form-group">
+                <label>First Name:</label>
+                <input asp-for="Receiver.FirstName" />
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input asp-for="Receiver.LastName" />
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input asp-for="Receiver.Address" />
+            </div>
+            <div class="form-group">
+                <label>Country:</label>
+                <input asp-for="Receiver.Country" />
+            </div>
+        </div>
+
+        <div class="payment-details">
+            <h3>Payment Details</h3>
+            <div class="form-group">
+                <label>Bank Name:</label>
+                <input asp-for="PaymentDetails.BankName" />
+            </div>
+            <div class="form-group">
+                <label>Account Number:</label>
+                <input asp-for="PaymentDetails.AccountNumber" />
+            </div>
+            <div class="form-group">
+                <label>Transfer Amount:</label>
+                <input asp-for="PaymentDetails.TransferAmount" />
+            </div>
+            <div class="form-group">
+                <label>Exchange Rate:</label>
+                <input asp-for="PaymentDetails.ExchangeRate" />
+            </div>
+            <div class="form-group">
+                <label>Payout Amount:</label>
+                <input asp-for="PaymentDetails.PayoutAmount" />
+            </div>
+        </div>
+    </div>
+
+    <div class="remarks-section">
+        <h3>Remarks</h3>
+        <div class="form-group">
+            <textarea asp-for="Remarks"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Transfer Money</button>
+    <button type="reset" class="btn btn-danger">Clear</button>
+</form>
